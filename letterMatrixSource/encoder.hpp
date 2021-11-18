@@ -23,9 +23,9 @@ string encoder(string input, string key) {
             i++;
         }
     }
+    
 
-
-
+    
 
     vector<vector<char>> matrix(5);
     return input;

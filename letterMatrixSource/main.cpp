@@ -20,4 +20,5 @@ int main() {
 
     encoder(input, key);
 
+    
 }
