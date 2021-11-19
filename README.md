@@ -35,5 +35,40 @@ Take the word 'this' for example, we first split it into character pairs
 
 'th' 'is'
 
-now we treat each pair as row/column and column/row pairs to get a new character pair
+Now we treat each pair as row/column and column/row pairs to get a new character pair
 
+'th' in the lizard matrix will become 'pn' and 'is' would become 'ap'
+
+'This' encoded in our lizard matrix is 'pnap'
+
+If both letters in our character pair are in the same row/column we shift them up/right or down/left depending on if we a encoding or decoding 
+
+For example if both our keyword and the word we want to encode were banana
+
+Our matrix would look like this
+
+```shell
+b a n c d
+e f g h i
+k l m o p
+q r s t u
+v w x y z
+```
+
+Our letter pairs would look like this
+
+```shell
+'ba' 'na' 'na'
+```
+
+Because we are encoding we shift each character to the right if they are in the same row so our encoded letter pairs would look like this
+
+```shell
+'an' 'cn' 'cn'
+```
+
+So banana encoded with banana is 
+
+```shell
+'annccn'
+```
