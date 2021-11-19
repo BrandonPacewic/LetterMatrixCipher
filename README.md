@@ -33,13 +33,19 @@ Once a matrix has been created we can now encode/decode the message
 
 Take the word 'this' for example, we first split it into character pairs
 
+```shell
 'th' 'is'
+```
 
 Now we treat each pair as row/column and column/row pairs to get a new character pair
 
 'th' in the lizard matrix will become 'pn' and 'is' would become 'ap'
 
-'This' encoded in our lizard matrix is 'pnap'
+'This' encoded in our lizard matrix is 
+
+```shell
+'pnap'
+```
 
 If both letters in our character pair are in the same row/column we shift them up/right or down/left depending on if we a encoding or decoding 
 
@@ -70,7 +76,7 @@ Because we are encoding we shift each character to the right if they are in the 
 So banana encoded with banana is 
 
 ```shell
-'annccn'
+'ancncn'
 ```
 
 If there is a uneven number of letters we add an 'x' to complete the letter pair 
