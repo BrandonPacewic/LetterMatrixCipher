@@ -26,10 +26,10 @@ void printMatrix(T_Matrix MATRIX) {
 
 int main() {
     string input, key;
-    cin >> key;
+    cin >> key >> input;
 
     vector<vector<char>> matrix = initalize_matrix(key);
-    cout << encoder(matrix, input);
+    cout << encoder(matrix, input) << '\n';
 
     printMatrix(matrix);
 }
