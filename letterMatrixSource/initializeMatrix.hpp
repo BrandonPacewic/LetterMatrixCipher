@@ -4,8 +4,8 @@ using namespace std;
 vector<char> used;
 bool find(char test) {
     for (auto i : used)
-            if (i == test)
-                return true;
+        if (i == test)
+            return true;
     return false;
 }
 
@@ -30,11 +30,13 @@ vector<vector<char>> initalize_matrix(string KEY = "-") {
         if (!find(alph[i]))
             matrix_inital.push_back(alph[i]);
 
-    vector<vector<char>> matrix;
+    assert(matrix_inital.size() == 25);
+
+    vector<vector<char>> matrix(5);
     int inital_pos = 0;
     for (int i = 0; i < 5; i++) 
         for (int j = 0; j < 5; j++) {
-            matrix[i].push_back(inital_pos);
+            matrix[i].push_back(matrix_inital[inital_pos]);
             inital_pos++;
         }
 

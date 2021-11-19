@@ -1,11 +1,11 @@
 #include <bits/stdc++.h>
-#include "initializeMatrix.hpp"
-
 using namespace std;
+
+#include "initializeMatrix.hpp"
 
 
 //dbg
-// #define DBG_MODE
+#define DBG_MODE
 long long DBG_COUNT = 0ll;
 void DBG_OUT() { cerr << endl; DBG_COUNT += 1ll; }
 template<typename Front, typename... Back> void DBG_OUT(Front K, Back... T) { cerr << ' ' << K; DBG_OUT(T...); }
@@ -17,14 +17,18 @@ template<typename T_Ints> void testList(T_Ints List) { return; }
 #define testArgs(...)
 #endif
 
+template<typename T_Matrix>
+void printMatrix(T_Matrix MATRIX) {
+    for (int i = 0; i < MATRIX.size(); i++)
+        for (int j = 0; j < MATRIX[i].size(); j++)
+            cout << MATRIX[i][j] << (j < MATRIX[i].size() - 1 ? ' ' : '\n'); 
+}
 
 int main() {
     string input, key;
-    cin >> input >> key;
+    cin >> key;
 
     vector<vector<char>> matrix = initalize_matrix(key);
 
-    for (int i = 0; i < 5; i++)
-        testList(matrix[i]);
-    
+    printMatrix(matrix);
 }
