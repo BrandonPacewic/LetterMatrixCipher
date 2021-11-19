@@ -8,10 +8,10 @@ In a PlayFair 'i' and 'j' are interchangable, for this script it is centered aro
 
 #### Matrix Example
 
-'''shell
+```shell
 a b c d e
 f g h i k
 l m n o p
 q r s t u
 v w x y z
-'''
+```
