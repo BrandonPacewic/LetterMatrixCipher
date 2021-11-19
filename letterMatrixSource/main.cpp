@@ -1,18 +1,21 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-#include "encoder.hpp"
+#include "encoder.cpp"
 
 //dbg
-long long dbg_count = 0ll;
-void dbg_out1() { cerr << endl; dbg_count += 1ll; }
-template<typename Front, typename... Back> void dbg_out1(Front K, Back... T) { cerr << ' ' << K; dbg_out1(T...); }
-#define testArgs(...) cerr << '#' << dbg_count << " __VA_ARGS__ (" << #__VA_ARGS__ << "):", dbg_out1(__VA_ARGS__)
+// #define DBG_MODE
+long long DBG_COUNT = 0ll;
+void DBG_OUT() { cerr << endl; DBG_COUNT += 1ll; }
+template<typename Front, typename... Back> void DBG_OUT(Front K, Back... T) { cerr << ' ' << K; DBG_OUT(T...); }
+#ifdef DBG_MODE
+template<typename T_Ints> void testList(T_Ints List) { cerr << '#' << DBG_COUNT << " __LIST_ARGS__: ("; DBG_COUNT += 1ll; for (int i = 0; i < List.size(); i++) { cout << List[i] << (i < List.size() - 1 ? ", " : ")\n"); } }
+#define testArgs(...) cerr << '#' << DBG_COUNT << " __VA_ARGS__ (" << #__VA_ARGS__ << "):", DBG_OUT(__VA_ARGS__)
+#else
+template<typename T_Ints> void testList(T_Ints List) { return; }
+#define testArgs(...)
+#endif
 
-const string data_type[1] = { "St6vectorIiSaIiEE" };
-void assertListType() { cerr << '#' << dbg_count << " __LIST_ARGS__: ("; dbg_count += 1ll; }
-bool findType(string type) { for (auto i: data_type) { if (i == type) return true; } return false; }
-template<typename Arr> void testListInt(Arr List) { assert(findType(typeid(List).name())); assertListType(); for (int i: List) { cout << ' ' << i; } cerr << " )" << endl; }
 
 int main() {
     string input, key;
