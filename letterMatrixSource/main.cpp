@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-#include "initializeMatrix.cpp"
+#include "initializeMatrix.hpp"
 
 using namespace std;
 
