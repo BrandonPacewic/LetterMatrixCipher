@@ -3,7 +3,7 @@
 
 ----
 
-A PlayFair Cipher invloves creating a 5 x 5 matrix of the alphabet
+A PlayFair Cipher invloves creating a 5 x 5 matrix of the alphabet\n
 In a PlayFair 'i' and 'j' are interchangable, for this script it is centered around 'i'
 
 #### Matrix Example
