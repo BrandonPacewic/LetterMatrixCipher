@@ -22,7 +22,9 @@ int main() {
     string input, key;
     cin >> input >> key;
 
-    encoder(input, key);
+    vector<vector<char>> matrix = initalize_matrix(key);
 
+    for (int i = 0; i < 5; i++)
+        testList(matrix[i]);
     
 }

@@ -3,19 +3,20 @@ using namespace std;
 
 vector<char> used;
 bool find(char test) {
-    for (auto i: used)
+    for (auto i : used)
             if (i == test)
                 return true;
     return false;
 }
 
-string encoder(string input, string key = "-") {
+vector<vector<char>> initalize_matrix(string KEY = "-") {
     
     const string alph = "abcdefghiklmnopqrstuvwxyz";
     vector<char> matrix_inital; 
 
-    for (auto i: input) 
-        matrix_inital.push_back((tolower(i) == 'j') ? 'i' : tolower(i));
+    if (KEY[0] != '-')
+        for (auto i : KEY) 
+            matrix_inital.push_back((tolower(i) == 'j') ? 'i' : tolower(i));
 
     for (int i = 0; i < matrix_inital.size();) 
         if (find(matrix_inital[i])) {
@@ -36,11 +37,6 @@ string encoder(string input, string key = "-") {
             matrix[i].push_back(inital_pos);
             inital_pos++;
         }
-    
 
-
-
-
-
-    return input;
+    return matrix;
 }
