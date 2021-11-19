@@ -72,3 +72,7 @@ So banana encoded with banana is
 ```shell
 'annccn'
 ```
+
+If there is a uneven number of letters we add an 'x' to compleat the letter pair 
+
+The encoded word will have a letter that does not make sense but that can be fixed when the word is decoded again and the extra letter can be removed
