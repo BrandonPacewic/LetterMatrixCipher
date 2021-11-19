@@ -1,7 +1,8 @@
 #include <bits/stdc++.h>
+#include "initializeMatrix.cpp"
 
 using namespace std;
-#include "initializeMatrix.cpp"
+
 
 //dbg
 // #define DBG_MODE
