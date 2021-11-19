@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-#include "encoder.cpp"
+#include "initializeMatrix.cpp"
 
 //dbg
 // #define DBG_MODE
