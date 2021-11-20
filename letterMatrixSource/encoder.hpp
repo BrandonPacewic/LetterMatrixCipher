@@ -15,7 +15,8 @@ pair<int, int> find(vector<vector<char>> matrix, char target) {
 
 vector<char> encoder(vector<vector<char>> matrix, string input, bool encoding = true) {
     vector<pair<int, int>> pairs(input.length() % 2 != 0 ? input.length() + 1 : input.length());
-    const int SMOL = int(1e10) * -1;
+    const int LARG = int(1e9);
+    const int SMOL = int(1e9) * -1;
 
     for (int i = 0; i < pairs.size(); i++) 
         pairs[i] = find(matrix, i > input.length() - 1 ? 'x' : input[i]);
@@ -34,15 +35,16 @@ vector<char> encoder(vector<vector<char>> matrix, string input, bool encoding = 
             //     newPears.push_back(matrix[encoding ? pairs[i + 1].first + 1 : pairs[i + 1].first - 1][pairs[i + 1].second]);
             // }
             if (pairs[i].first == pairs[i + 1].first)  {
-                int birb = encoding ? pairs[i].second + 1 : SMOL > 4 ? 0 : encoding ? pairs[i].second + 1 : pairs[i].second - 1;
-                int doger = encoding ? pairs[i + 1].second + 1 : SMOL > 4 ? 0 : encoding ? pairs[i + 1].second + 1 : pairs[i + 1].second - 1;
-                newPears.push_back(matrix[pairs[i].first][birb]);
-                newPears.push_back(matrix[pairs[i + 1].first][doger]);
+                int birb = encoding ? pairs[i].second + 1 : pairs[i].second - 1;
+                int doger = encoding ? pairs[i + 1].second + 1 : pairs[i + 1].second - 1;
+                newPears.push_back(matrix[pairs[i].first][birb > 4 ? 0 : birb < 0 ? 4 : birb]);
+                newPears.push_back(matrix[pairs[i + 1].first][doger > 4 ? 0 : doger < 0 ? 4 : doger]);
             } else {
-                int horse = encoding ? pairs[i].first + 1 : SMOL > 4 ? 0 : encoding ? pairs[i].first + 1 : pairs[i].first - 1;
-                int tardigrade = 
+                int tardigrade = encoding ? pairs[i].first + 1 : pairs[i].first - 1;
+                int waterbear = encoding ? pairs[i + 1].first + 1 : pairs[i + 1].first - 1;
+                newPears.push_back(matrix[tardigrade > 4 ? 0 : tardigrade < 0 ? 4 : tardigrade][pairs[i].second]);
+                newPears.push_back(matrix[waterbear > 4 ? 0 : waterbear < 0 ? 4 : waterbear][pairs[i + 1].second]);
             }
 
-        
     return newPears;
 }

@@ -28,9 +28,13 @@ int main() {
     string input, key;
     cin >> key >> input;
 
+    cerr << endl;
     vector<vector<char>> matrix = initalize_matrix(key);
     vector<char> drag = encoder(matrix, input);
 
     printMatrix(matrix);
-    testList(drag);
+    cerr << endl;
+
+    for (int i = 0; i < drag.size(); i++)
+        i < drag.size() - 1 ? cout << drag[i] : cout << drag[i] << '\n';
 }   
