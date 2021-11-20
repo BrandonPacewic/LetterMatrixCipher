@@ -81,4 +81,20 @@ So banana encoded with banana is
 
 If there is a uneven number of letters we add an 'x' to complete the letter pair 
 
-The encoded word will have a letter that does not make sense but that can be fixed when the word is decoded again and the extra letter can be removed
+The encoded word will have a letter that does not make sense but that can be fixed when the word is decoded again and the extra 'x' can be removed
+
+In a similar mannar if any character pair contains identical characters such as in the word
+
+```shell
+'button'
+```
+
+We replace the second character in the pair with 'x' so 'tt' becomes
+
+```shell
+'tx'
+```
+
+This will sometimes create problems where it can be hard to tell if a given 'x' is really meant to be an 'x' or if it's a place holder for something else
+
+This is why the letter 'x' was chosen as it has the least number of words connected to it in the english language
