@@ -1,4 +1,5 @@
 #include "letterMatrixSource/initializeMatrix.hpp"
+#include "letterMatrixSource/encoder.hpp"
 #include <cstdio>
 #include <iostream>
 #include <string>
@@ -15,10 +16,14 @@ int main() {
 
     freopen("in.txt", "r", stdin);
 
-    string key;
-    cin >> key;
+    string key, input;
+    cin >> key >> input;
 
     auto matrix = matirxInitalizer::initalize(key);
 
+    cout << endl;
     printMatrix(matrix);
+    cout << endl;
+
+    cout << encode::generateWord(input, matrix) << endl;
 }

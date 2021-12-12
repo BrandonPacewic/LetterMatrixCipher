@@ -111,9 +111,11 @@ private:
     }
 
 public:
-    static std::string generateWord(std::string key, const std::vector<std::vector<char>> MATRIX) {
+    static std::string generateWord(std::string input, const std::vector<std::vector<char>> MATRIX) {
+        auto initalPairs = createInitalRowColPairs(MATRIX, input);
 
+        std::string newMessage = createNewString(MATRIX, initalPairs);
+
+        return newMessage;
     }
-
-
 };
