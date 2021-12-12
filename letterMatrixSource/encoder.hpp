@@ -52,6 +52,12 @@
 #include <string>
 #include <vector>
 
+//modulo http://www.cplusplus.com/forum/general/19502/
+template<typename T, typename OP> struct modulo { T bace; }; enum { mod };
+template<typename T> modulo<T, decltype(mod)> operator<(const T& front, decltype(mod)) { return  { front }; }
+int operator>(modulo<int, decltype(mod)> tail, int exponent) { int& bace = tail.bace; return bace % exponent < 0 ? (bace % exponent) + exponent : bace % exponent; }
+
+
 class encode {
 private:
     static const std::pair<int, int> findCharInMatrix(std::vector<std::vector<char>> MATRIX, char target) {
@@ -75,6 +81,24 @@ private:
             if (i % 2 == 0 && initalPairs[i] == initalPairs[i - 1]) {
                 initalPairs[i] = findCharInMatrix(MATRIX, 'x');
             }
+        }
+
+        return initalPairs;
+    }
+
+    static std::string createNewString(const std::vector<std::vector<char>> MATRIX, const std::vector<std::pair<int, int>> initalPairs, const bool encoding = true) {
+        std::string newMessage = "";
+
+        for (int i = 0; i < initalPairs.size(); i += 2) {
+            if ((initalPairs[i].first != initalPairs[i - 1].first) && (initalPairs[i].second != initalPairs[i - 1].second)) {
+                newMessage += MATRIX[initalPairs[i].first][initalPairs[i + 1].second];
+                newMessage += MATRIX[initalPairs[i + 1].first][initalPairs[i].second];
+
+            } else if (initalPairs[i].first == initalPairs[i + 1].first) {
+                newMessage += encoding ? (initalPairs[i].first + 1) <mod> 5 : (initalPairs[i].first - 1) <mod> 5;
+                newMessage += encoding ? (initalPairs[i + 1].second + 1) <mod> 5 : (initalPairs[i + 1].second - 1) <mod> 5;
+
+            } else if (initalPairs[i])
         }
     }
 
