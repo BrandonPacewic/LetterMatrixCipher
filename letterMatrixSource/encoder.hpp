@@ -78,7 +78,7 @@ private:
         for (int i = 0; i < initalPairs.size(); i++) {
             initalPairs[i] = findCharInMatrix(MATRIX, i > input.length() - 1 ? 'x' : tolower(input[i]) == 'j' ? 'i' : tolower(input[i]));
 
-            if (i % 2 == 0 && initalPairs[i] == initalPairs[i - 1]) {
+            if (i + 1 % 2 == 0 && initalPairs[i] == initalPairs[i - 1]) {
                 initalPairs[i] = findCharInMatrix(MATRIX, 'x');
             }
         }
@@ -87,6 +87,9 @@ private:
     }
 
     static std::string createNewString(const std::vector<std::vector<char>> MATRIX, const std::vector<std::pair<int, int>> initalPairs, const bool encoding = true) {
+        const int matrixRows = MATRIX.size();
+        const int matrixCols = MATRIX[0].size();
+
         std::string newMessage = "";
 
         for (int i = 0; i < initalPairs.size(); i += 2) {
@@ -95,11 +98,16 @@ private:
                 newMessage += MATRIX[initalPairs[i + 1].first][initalPairs[i].second];
 
             } else if (initalPairs[i].first == initalPairs[i + 1].first) {
-                newMessage += encoding ? (initalPairs[i].first + 1) <mod> 5 : (initalPairs[i].first - 1) <mod> 5;
-                newMessage += encoding ? (initalPairs[i + 1].second + 1) <mod> 5 : (initalPairs[i + 1].second - 1) <mod> 5;
+                newMessage += encoding ? (initalPairs[i].second + 1) <mod> matrixCols : (initalPairs[i].second - 1) <mod> matrixCols;
+                newMessage += encoding ? (initalPairs[i + 1].second + 1) <mod> matrixCols : (initalPairs[i + 1].second - 1) <mod> matrixCols;
 
-            } else if (initalPairs[i])
+            } else if (initalPairs[i].second == initalPairs[i + 1].second) {
+                newMessage += encoding ? (initalPairs[i].first + 1) <mod> matrixRows : (initalPairs[i].first - 1) <mod> matrixRows;
+                newMessage += encoding ? (initalPairs[i + 1].first + 1) <mod> matrixRows : (initalPairs[i + 1].first - 1) <mod> matrixRows;
+            }
         }
+
+        return newMessage;
     }
 
 public:
