@@ -42,3 +42,24 @@
 
 //     return matrix;
 // }
+
+#include <string>
+#include <vector>
+#include <unordered_set>
+
+class initalizeMatrix {
+private:
+    static std::vector<std::vector<char>> createMatrix(const std::string APLHABET, const int MATRIX_SIZE, const std::string key) {
+        std::unordered_set<char> used;
+        std::vector<std::vector<char>> matrix(MATRIX_SIZE, std::vector<char> (MATRIX_SIZE));
+
+        
+    }
+
+
+
+
+public:
+    static const int MATRIX_SIZE;
+    static const std::string APLHABET;
+};
