@@ -47,3 +47,41 @@
 
 //     return newPears;
 // }
+
+
+#include <string>
+#include <vector>
+
+class encode {
+private:
+    static const std::pair<int, int> findCharInMatrix(std::vector<std::vector<char>> MATRIX, char target) {
+        for (int i = 0; i < MATRIX.size(); i++) {
+            for (int k = 0; k < MATRIX[i].size(); k++) {
+                if (MATRIX[i][k] == target) {
+                    return {i, k};
+                }
+            }
+        }
+
+        return {-1, -1};
+    }
+
+    static std::vector<std::pair<int, int>> createInitalRowColPairs(const std::vector<std::vector<char>> MATRIX, const std::string input) {
+        std::vector<std::pair<int, int>> initalPairs(input.length() % 2 != 0 ? input.length() + 1 : input.length());
+
+        for (int i = 0; i < initalPairs.size(); i++) {
+            initalPairs[i] = findCharInMatrix(MATRIX, i > input.length() - 1 ? 'x' : tolower(input[i]) == 'j' ? 'i' : tolower(input[i]));
+
+            if (i % 2 == 0 && initalPairs[i] == initalPairs[i - 1]) {
+                initalPairs[i] = findCharInMatrix(MATRIX, 'x');
+            }
+        }
+    }
+
+public:
+    static std::string generateWord(std::string key, const std::vector<std::vector<char>> MATRIX) {
+
+    }
+
+
+};
