@@ -61,7 +61,7 @@ public:
     static const std::unordered_set<char> validChars;
 
     static std::vector<std::vector<char>> initalize(std::string key = "a") {
-        if (key[0] != 'a') {
+        if (key[0] != 'a' && key.length() != 1) {
             assert(assertValidChars(key));
         }
 
