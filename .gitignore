@@ -36,3 +36,8 @@
 
 # test
 test.cpp
+
+# in / out
+ex.txt
+in.txt
+ou.txt
