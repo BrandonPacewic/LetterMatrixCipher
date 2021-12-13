@@ -87,8 +87,8 @@ private:
     }
 
     static std::string createNewString(const std::vector<std::vector<char>> MATRIX, const std::vector<std::pair<int, int>> initalPairs, const bool encoding = true) {
-        const int matrixRows = MATRIX.size();
-        const int matrixCols = MATRIX[0].size();
+        const int matrixRows = int(MATRIX.size());
+        const int matrixCols = int(MATRIX[0].size());
 
         std::string newMessage = "";
 
