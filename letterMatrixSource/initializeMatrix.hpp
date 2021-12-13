@@ -38,7 +38,7 @@ private:
             }
         }
 
-        for (auto ch : APLHABET) {
+        for (auto ch : ALPHABET) {
             if (!used.count(ch)) {
                 used.insert(ch);
                 matrix[row][cell] = ch;
@@ -57,7 +57,7 @@ private:
 
 public:
     static const int MATRIX_SIZE;
-    static const std::string APLHABET;
+    static const std::string ALPHABET;
     static const std::unordered_set<char> validChars;
 
     static std::vector<std::vector<char>> initalize(std::string key = "a") {
@@ -71,6 +71,6 @@ public:
     }
 };
 
-const std::string matirxInitalizer::APLHABET = "abcdefghiklmnopqrstuvwxyz";
+const std::string matirxInitalizer::ALPHABET = "abcdefghiklmnopqrstuvwxyz";
 const int matirxInitalizer::MATRIX_SIZE = 5;
-const std::unordered_set<char> matirxInitalizer::validChars = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+const std::unordered_set<char> matirxInitalizer::validChars = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
