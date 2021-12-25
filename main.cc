@@ -1,8 +1,5 @@
 #include "letterMatrixSource/initializeMatrix.hpp"
 #include "letterMatrixSource/encoder.hpp"
-#include <cstdio>
-#include <iostream>
-#include <string>
 using namespace std;
 
 template<typename T_Matrix>

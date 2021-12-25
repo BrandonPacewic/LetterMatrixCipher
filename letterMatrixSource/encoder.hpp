@@ -51,12 +51,14 @@
 
 #include <string>
 #include <vector>
+#include <iostream>
 
 //modulo http://www.cplusplus.com/forum/general/19502/
 template<typename T, typename OP> struct modulo { T bace; }; enum { mod };
 template<typename T> modulo<T, decltype(mod)> operator<(const T& front, decltype(mod)) { return  { front }; }
 int operator>(modulo<int, decltype(mod)> tail, int exponent) { int& bace = tail.bace; return bace % exponent < 0 ? (bace % exponent) + exponent : bace % exponent; }
 
+template<typename T_Pairs> void testPairs(T_Pairs Pairs) { std::cerr << '#' << " __PAIR_ARGS__: (";  for (int i = 0; i < Pairs.size(); i++) { std::cerr << Pairs[i].first << "$$" << Pairs[i].second << (i < Pairs.size() - 1 ? ", " : ")\n"); } } 
 
 class encode {
 private:
@@ -113,6 +115,9 @@ private:
 public:
     static std::string generateWord(std::string input, const std::vector<std::vector<char>> MATRIX) {
         auto initalPairs = createInitalRowColPairs(MATRIX, input);
+
+        testPairs(initalPairs);
+
 
         std::string newMessage = createNewString(MATRIX, initalPairs);
 

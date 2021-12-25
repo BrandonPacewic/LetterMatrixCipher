@@ -6,6 +6,7 @@
 
 class matirxInitalizer {
 private:
+    // valid chars + convert to lower
     static bool assertValidChars(std::string &key) {
         for (auto &ch : key) {
             ch = tolower(ch);
@@ -28,7 +29,7 @@ private:
             if (!used.count(ch)) {
                 used.insert(ch);
                 matrix[row][cell] = ch == 'j' ? 'i' : ch;
-            
+
                 if (cell < MATRIX_SIZE - 1) {
                     cell++;
                 } else {
@@ -73,4 +74,4 @@ public:
 
 const std::string matirxInitalizer::ALPHABET = "abcdefghiklmnopqrstuvwxyz";
 const int matirxInitalizer::MATRIX_SIZE = 5;
-const std::unordered_set<char> matirxInitalizer::validChars = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+const std::unordered_set<char> matirxInitalizer::validChars = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
