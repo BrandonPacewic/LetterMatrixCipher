@@ -36,6 +36,7 @@
 
 # test
 test.cpp
+test.cc
 
 # in / out
 ex.txt
