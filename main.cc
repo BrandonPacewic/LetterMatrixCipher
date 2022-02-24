@@ -77,9 +77,12 @@ std::string encoder(const matrix &grid, const std::string &message,
 	const int ad = (encoding ? 1 : -1);
 	std::string new_message;
 
-	for (const char &ch : message) {
-		
-	}
+	auto modulo = [](int a, int b) -> int {
+		a %= b;
+		if (a < 0) a += b;
+		return a; 
+	};
+
 }
 
 
