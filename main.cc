@@ -1,9 +1,10 @@
 #include <cassert>
 #include <iostream>
 #include <ostream>
-#include <unordered_set>
 #include <string>
 #include <vector>
+#include <unordered_map>
+#include <unordered_set>
 
 #ifndef _BRANDON_MATRIX
 #define _BRANDON_MATRIX
@@ -15,7 +16,7 @@ void print_matrix(const matrix &grid) {
     for (int row = 0; row < int(grid.size()); row++) {
     	for (int cell = 0; cell < int(grid[row].size()); cell++) {
     		std::cout << grid[row][cell] << (
-    						cell >= int(grid[row].size()) - 1 ? '\n' : ' ');
+					cell >= int(grid[row].size()) - 1 ? '\n' : ' ');
     	}
     }
 }
@@ -56,6 +57,29 @@ matrix create_matrix(const std::string &key) {
 	}
 
 	return grid;
+}
+
+
+std::string encoder(const matrix &grid, const std::string &message, 
+												const bool &encoding) {
+	const int matrix_size = int(grid.size());
+	std::unordered_map<char, std::pair<int, int>> map_char_to_cord;
+
+	// Create map char to cord
+	for (int row = 0; row < matrix_size; row++) {
+		for (int cell = 0; cell < matrix_size; cell++) {
+			map_char_to_cord[grid[row][cell]] = {row, cell};
+		}
+	}
+
+	// ad defines the adjustment needed to find the propper char
+	// within the matrix
+	const int ad = (encoding ? 1 : -1);
+	std::string new_message;
+
+	for (const char &ch : message) {
+		
+	}
 }
 
 
