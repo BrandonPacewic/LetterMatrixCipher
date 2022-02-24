@@ -10,17 +10,16 @@
 typedef std::vector<std::string> matrix;
 #endif
 
-template<typename T_container, typename T = typename std::enable_if<!std::is_same<T_container, std::string>::value, typename T_container::value_type>::type> std::ostream& operator<<(std::ostream &os, const T_container &v) { os << '{'; std::string sep; for (const T &x : v) os << sep << x, sep = ", "; return os << '}'; }
 
-//dbg
-#ifdef DBG_MODE
-int64_t DBG_COUNT = 0;
-void DBG_OUT() { std::cerr << std::endl; DBG_COUNT++; }
-template<typename Front, typename... Back> void DBG_OUT(Front K, Back... T) { std::cerr << ' ' << K; DBG_OUT(T...); }
-#define test(...) std::cerr << '#' << DBG_COUNT << " [" << #__VA_ARGS__ << "]:", DBG_OUT(__VA_ARGS__)
-#else
-#define test(...)
-#endif
+void print_matrix(const matrix &grid) {
+    for (int row = 0; row < int(grid.size()); row++) {
+    	for (int cell = 0; cell < int(grid[row].size()); cell++) {
+    		std::cout << grid[row][cell] << (
+    						cell >= int(grid[row].size()) - 1 ? '\n' : ' ');
+    	}
+    }
+}
+
 
 matrix create_matrix(const std::string &key) {
 	const int grid_size = 5;
@@ -59,6 +58,7 @@ matrix create_matrix(const std::string &key) {
 	return grid;
 }
 
+
 int main() {
 	std::ios::sync_with_stdio(false);
 	std::cin.tie(nullptr);
@@ -67,10 +67,12 @@ int main() {
 	std::cout << "(Message, Key): " << std::flush;
 	std::cin >> message >> key;
 
-	matrix grid = create_matrix(key);
-	std::cout << grid;
+	auto grid = create_matrix(key);
+	print_matrix(grid);
 
-	// bool encoding;
-	// std::cout << "Encoding or Decoding(1, 0): " << std::flush;
-	// std::cin >> encoding;
+	bool encoding;
+	std::cout << "Encoding or Decoding(1, 0): " << std::flush;
+	std::cin >> encoding;
+
+
 }
