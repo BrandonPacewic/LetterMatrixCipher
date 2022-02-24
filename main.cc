@@ -1,11 +1,28 @@
 #include <iostream>
+#include <ostream>
+#include <unordered_set>
 #include <string>
 #include <vector>
 
-struct matrix {
-	std::vector<std::string> grid;
+#ifndef _BRANDON_MATRIX
+#define _BRANDON_MATRIX
+typedef std::vector<std::string> matrix;
+#endif
 
-};
+matrix create_matrix(const std::string &key) {
+	const std::string alph = "abcdefghijklmnopqrstuvwxyz";
+	std::unordered_set<char> used;
+	int row = 0, cell = 0;
+	matrix grid;
+
+	auto adjust_row_cell = [&]() -> void {
+		
+	};
+
+	for (const char &ch : key) {
+
+	}
+}
 
 int main() {
 	std::ios::sync_with_stdio(false);
