@@ -1,6 +1,7 @@
+#include <algorithm>
 #include <cassert>
+#include <cctype>
 #include <iostream>
-#include <ostream>
 #include <string>
 #include <vector>
 #include <unordered_map>
@@ -9,6 +10,13 @@
 #ifndef _BRANDON_MATRIX
 #define _BRANDON_MATRIX
 typedef std::vector<std::string> matrix;
+#endif
+
+//dbg
+#ifdef DBG_MODE
+#include "dbg.h"
+#else
+#define test(...)
 #endif
 
 void print_matrix(const matrix &grid) {
@@ -66,10 +74,14 @@ void assert_valid_chars(const std::string &str) {
 
 std::string encoder(const matrix &grid, const bool &encoding, 
 		std::string message) {
+	auto it = std::remove_if(message.begin(), message.end(), ::isspace);
+	message.erase(it, message.end());
+
+	assert_valid_chars(message);
+
 	const int matrix_size = int(grid.size());
 	std::unordered_map<char, std::pair<int, int>> map_char_to_cord;
 
-	// Create map char to cord
 	for (int row = 0; row < matrix_size; ++row) {
 		for (int cell = 0; cell < matrix_size; ++cell) {
 			map_char_to_cord[grid[row][cell]] = {row, cell};
@@ -93,8 +105,8 @@ std::string encoder(const matrix &grid, const bool &encoding,
 		if (message[i] == message[i+1]) { message[i+1] = 'x'; }
 	}
 
-	// Create message cord pairs
 	std::vector<std::pair<int, int>> message_cord_pairs(int(message.length()));
+
 	for (int i = 0; i < int(message.length()); ++i) {
 		message_cord_pairs[i] = map_char_to_cord[message[i]];
 	}
@@ -158,11 +170,14 @@ int main() {
 	std::ios::sync_with_stdio(false);
 	std::cin.tie(nullptr);
 
-	std::string message, key;
-	std::cout << "(Message, Key): " << std::flush;
-	std::cin >> message >> key;
+	std::string message;
+	std::cout << "Message: " << std::flush;
+	std::getline(std::cin, message);
 
-	auto grid = create_matrix(key);
+	std::string key;
+	std::cout << "Key(NO WS): " << std::flush;
+	std::cin >> key;
+	matrix grid = create_matrix(key);
 	print_matrix(grid);
 
 	bool encoding;
