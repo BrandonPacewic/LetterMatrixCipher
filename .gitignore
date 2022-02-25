@@ -33,3 +33,6 @@
 
 # vs code
 .vscode
+
+# dbg tools
+dbg.h
