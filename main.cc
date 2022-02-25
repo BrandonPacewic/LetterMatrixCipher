@@ -64,7 +64,7 @@ matrix create_matrix(const std::string &key) {
 	return grid;
 }
 
-void assert_valid_chars(const std::string &str) {
+void const assert_valid_chars(const std::string &str) {
 	const std::string valid_chars = "abcdefghijklmnopqrstuvwxyz";
 
 	for (const char &ch : str) {
