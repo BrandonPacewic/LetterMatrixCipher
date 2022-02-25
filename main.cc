@@ -60,7 +60,7 @@ matrix create_matrix(const std::string &key) {
 }
 
 
-std::string encoder(const matrix &grid, const std::string &message, 
+std::string encoder(const matrix &grid, std::string message, 
 												const bool &encoding) {
 	const int matrix_size = int(grid.size());
 	std::unordered_map<char, std::pair<int, int>> map_char_to_cord;
@@ -70,6 +70,20 @@ std::string encoder(const matrix &grid, const std::string &message,
 		for (int cell = 0; cell < matrix_size; cell++) {
 			map_char_to_cord[grid[row][cell]] = {row, cell};
 		}
+	}
+
+	// If the message len is not even the letter 'x' is added to make 
+	// enough char pairs $defined in README.md
+	if (message.length() % 2 != 0) {
+		message += 'x';
+	}
+
+	assert(message.length() % 2 == 0);
+
+	// Create message pairs
+	std::vector<std::pair<char, char>> message_pairs;
+	for (int i = 0; i < message.length(); i += 2) {
+		message_pairs.push_back({message[i], message[i + 1]});
 	}
 
 	// ad defines the adjustment needed to find the propper char
@@ -82,6 +96,7 @@ std::string encoder(const matrix &grid, const std::string &message,
 		if (a < 0) a += b;
 		return a; 
 	};
+
 
 }
 
