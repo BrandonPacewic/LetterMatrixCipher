@@ -11,7 +11,13 @@
 typedef std::vector<std::string> matrix;
 #endif
 
-
+//dbg
+#ifdef DBG_MODE
+#include "dbg.h"
+#else
+#define test(...)
+#endif
+	
 void print_matrix(const matrix &grid) {
     for (int row = 0; row < int(grid.size()); row++) {
     	for (int cell = 0; cell < int(grid[row].size()); cell++) {
