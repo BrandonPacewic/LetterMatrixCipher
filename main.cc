@@ -108,13 +108,17 @@ void encoder(const matrix &grid, std::string message,
 		return a; 
 	};
 
-	// test(message_pairs, map_char_to_cord);
+	
 }
 
 
 int main() {
+#ifdef DBG_MODE
+	freopen("sample_input.txt", "r", stdin);
+#else
 	std::ios::sync_with_stdio(false);
 	std::cin.tie(nullptr);
+#endif
 
 	std::string message, key;
 	std::cout << "(Message, Key): " << std::flush;
@@ -129,4 +133,6 @@ int main() {
 	test(encoding);
 
 	encoder(grid, message, encoding);
+
+	return 0;
 }
