@@ -123,7 +123,9 @@ std::string encoder(const matrix &grid, const bool &encoding,
 	const int ad = (encoding ? 1 : -1);
 	std::vector<std::pair<int, int>> new_cord_pairs;
 
-	// Make new char pairs
+	// Make new char pairs, mod is needed for adjustments to assert
+	// that the new pair lands on a valid index of the grid
+	// this is valid because of the matrix wrap rule defined in README.md
 	for (int i = 0; i < int(message_cord_pairs.size()); i += 2) 
 	{
 		if (message_cord_pairs[i].first == message_cord_pairs[i+1].first) 
@@ -135,9 +137,9 @@ std::string encoder(const matrix &grid, const bool &encoding,
 		}
 		else if (message_cord_pairs[i].second == message_cord_pairs[i+1].second) 
 		{
-			new_cord_pairs.push_back({mod(message_cord_pairs[i].first + ad),
+			new_cord_pairs.push_back({mod(message_cord_pairs[i].first - ad),
 				message_cord_pairs[i].second});
-			new_cord_pairs.push_back({mod(message_cord_pairs[i+1].first + ad),
+			new_cord_pairs.push_back({mod(message_cord_pairs[i+1].first - ad),
 				message_cord_pairs[i+1].second});
 		}
 		else
@@ -149,9 +151,9 @@ std::string encoder(const matrix &grid, const bool &encoding,
 		}
 	}
 
+	// Create new message
 	std::string new_message = "";
 
-	// Create new message
 	for (const std::pair<int, int> &cord : new_cord_pairs) {
 		new_message += grid[cord.first][cord.second];
 	}
@@ -168,14 +170,14 @@ int main() {
 #endif
 
 	std::string message, key;
-	// std::cout << "(Message, Key): " << std::flush;
+	std::cout << "(Message, Key): " << std::flush;
 	std::cin >> message >> key;
 
 	auto grid = create_matrix(key);
 	print_matrix(grid);
 
 	bool encoding;
-	// std::cout << "Encoding or Decoding(1, 0): " << std::flush;
+	std::cout << "Encoding or Decoding(1, 0): " << std::flush;
 	std::cin >> encoding;
 	test(encoding);
 
