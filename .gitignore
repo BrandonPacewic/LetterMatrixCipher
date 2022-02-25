@@ -36,3 +36,7 @@
 
 # dbg tools
 dbg.h
+
+# Sample input txt files
+*_input.txt
+*_output.txt
