@@ -11,13 +11,6 @@
 typedef std::vector<std::string> matrix;
 #endif
 
-//dbg
-#ifdef DBG_MODE
-#include "dbg.h"
-#else
-#define test(...)
-#endif
-	
 void print_matrix(const matrix &grid) {
     for (int row = 0; row < int(grid.size()); ++row) {
     	for (int cell = 0; cell < int(grid[row].size()); ++cell) {
@@ -162,12 +155,8 @@ std::string encoder(const matrix &grid, const bool &encoding,
 }
 
 int main() {
-#ifdef DBG_MODE
-	freopen("sample_input.txt", "r", stdin);
-#else
 	std::ios::sync_with_stdio(false);
 	std::cin.tie(nullptr);
-#endif
 
 	std::string message, key;
 	std::cout << "(Message, Key): " << std::flush;
@@ -179,7 +168,6 @@ int main() {
 	bool encoding;
 	std::cout << "Encoding or Decoding(1, 0): " << std::flush;
 	std::cin >> encoding;
-	test(encoding);
 
 	std::string new_message = encoder(grid, encoding, message);
 	std::cout << new_message << std::endl;
