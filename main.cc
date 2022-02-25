@@ -56,6 +56,7 @@ matrix create_matrix(const std::string &key) {
 	}
 
 	for (const char &ch : alph) {
+		assert(row < grid_size && cell < grid_size);
 		if (used.find(ch) != used.end()) { continue; }
 
 		grid[row][cell] = ch;
@@ -66,7 +67,7 @@ matrix create_matrix(const std::string &key) {
 }
 
 
-std::string encoder(const matrix &grid, std::string message, 
+void encoder(const matrix &grid, std::string message, 
 												const bool &encoding) {
 	const int matrix_size = int(grid.size());
 	std::unordered_map<char, std::pair<int, int>> map_char_to_cord;
@@ -88,7 +89,7 @@ std::string encoder(const matrix &grid, std::string message,
 
 	// Create message pairs
 	std::vector<std::pair<char, char>> message_pairs;
-	for (int i = 0; i < message.length(); i += 2) {
+	for (int i = 0; i < int(message.length()); i += 2) {
 		message_pairs.push_back({message[i], message[i + 1]});
 	}
 
@@ -97,13 +98,17 @@ std::string encoder(const matrix &grid, std::string message,
 	const int ad = (encoding ? 1 : -1);
 	std::string new_message;
 
-	auto modulo = [](int a, int b) -> int {
+	// Adjusted modulo, creates a number between 0 and k insted
+	// of being between -k and k, this is an oddity found in both C
+	// and c++
+	// http://www.cplusplus.com/forum/general/19502/
+	auto mod = [](int a, int b) -> int {
 		a %= b;
 		if (a < 0) a += b;
 		return a; 
 	};
 
-
+	// test(message_pairs, map_char_to_cord);
 }
 
 
@@ -121,6 +126,7 @@ int main() {
 	bool encoding;
 	std::cout << "Encoding or Decoding(1, 0): " << std::flush;
 	std::cin >> encoding;
+	test(encoding);
 
-
+	encoder(grid, message, encoding);
 }
