@@ -19,7 +19,7 @@ typedef std::vector<std::string> matrix;
 #define test(...)
 #endif
 
-void print_matrix(const matrix &grid) {
+void print_matrix(const matrix& grid) {
     for (int row = 0; row < int(grid.size()); ++row) {
     	for (int cell = 0; cell < int(grid[row].size()); ++cell) {
     		std::cout << grid[row][cell] << (
@@ -28,7 +28,7 @@ void print_matrix(const matrix &grid) {
     }
 }
 
-matrix create_matrix(const std::string &key) {
+matrix create_matrix(const std::string& key) {
 	const int grid_size = 5;
 	const std::string alph = "abcdefghiklmnopqrstuvwxyz";
 	std::unordered_set<char> used;
@@ -38,7 +38,7 @@ matrix create_matrix(const std::string &key) {
 	// null chars left after the matrix is initalized
 	matrix grid(grid_size, std::string(grid_size, '\0'));
 
-	auto adjust_row_cell = [](int &cell, int &row) -> void {
+	auto adjust_row_cell = [](int& cell, int& row) -> void {
 		if (!(cell < grid_size)) {
 			cell = 0;
 			++row;
@@ -64,7 +64,7 @@ matrix create_matrix(const std::string &key) {
 	return grid;
 }
 
-void const assert_valid_chars(const std::string &str) {
+void const assert_valid_chars(const std::string& str) {
 	const std::string valid_chars = "abcdefghijklmnopqrstuvwxyz";
 
 	for (const char &ch : str) {
@@ -72,7 +72,7 @@ void const assert_valid_chars(const std::string &str) {
 	}
 }
 
-std::string encoder(const matrix &grid, const bool &encoding, 
+std::string encoder(const matrix& grid, const bool& encoding, 
 		std::string message) {
 	auto it = std::remove_if(message.begin(), message.end(), ::isspace);
 	message.erase(it, message.end());
