@@ -34,9 +34,9 @@ matrix create_matrix(const std::string &key) {
 	std::unordered_set<char> used;
 	int row = 0, cell = 0;
 
-	// % is used as a null character, there should be no 
-	// %s' left after the matrix is initalized
-	matrix grid(grid_size, std::string(grid_size, '%'));
+	// '\0' is simply a null character, there should be no 
+	// null chars left after the matrix is initalized
+	matrix grid(grid_size, std::string(grid_size, '\0'));
 
 	auto adjust_row_cell = [&]() -> void {
 		cell++;
@@ -75,8 +75,8 @@ void assert_valid_chars(const std::string &str) {
 	}
 }
 
-void encoder(
-	const matrix &grid, std::string message, const bool &encoding) {
+void encoder(const matrix &grid, const bool &encoding, 
+		std::string message) {
 	const int matrix_size = int(grid.size());
 	std::unordered_map<char, std::pair<int, int>> map_char_to_cord;
 
@@ -88,12 +88,18 @@ void encoder(
 	}
 
 	// If the message len is not even the letter 'x' is added to make 
-	// enough char pairs $defined in README.md
+	// enough char pairs; defined in README.md
 	if (message.length() % 2 != 0) {
 		message += 'x';
 	}
 
 	assert(message.length() % 2 == 0);
+
+	// If any pair of chars is the same, the second one must be converted
+	// to 'x'; defined in README.md
+	for (int i = 0; i < int(message.length()); i += 2) {
+		if (message[i] == message[i+1]) { message[i+1] = 'x'; }
+	}
 
 	// Create message cord pairs
 	std::vector<std::pair<int, int>> message_cord_pairs;
@@ -101,8 +107,8 @@ void encoder(
 		message_cord_pairs.push_back(map_char_to_cord[ch]);
 	}
 
-	// Adjusted modulo, creates a number between 0 and k insted
-	// of being between -k and k, this is an oddity found in both C
+	// Adjusted modulo, creates a number between 0 and b insted
+	// of being between -b and b, this is an oddity found in both C
 	// and c++
 	// http://www.cplusplus.com/forum/general/19502/
 	auto mod = [](int a, int b) -> int {
@@ -114,11 +120,13 @@ void encoder(
 	// ad defines the adjustment needed to find the propper char
 	// within the matrix
 	const int ad = (encoding ? 1 : -1);
-	std::string new_message;
-	
-	for (int i = 0; i < int(message_pairs.size()); i += 2) {
-		if (message_pairs[i].first == message_pairs[i+1].first) {
+	std::vector<std::pair<int, int>> new_cord_pairs;
 
+	for (int i = 0; i < int(message_cord_pairs.size()); i += 2) {
+		if (message_cord_pairs[i].first == message_cord_pairs[i+1].first) {
+			new_cord_pairs.push_back({
+				// working
+			});
 		}
 	}
 }
@@ -144,7 +152,7 @@ int main() {
 	std::cin >> encoding;
 	test(encoding);
 
-	encoder(grid, message, encoding);
+	encoder(grid, encoding, message);
 
 	return 0;
 }
