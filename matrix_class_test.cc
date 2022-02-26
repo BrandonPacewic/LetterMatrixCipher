@@ -25,20 +25,32 @@ template<typename Front, typename... Back> void DBG_OUT(Front K, Back... T) { st
 #define test(...) std::cerr << '#' << DBG_COUNT << " [" << #__VA_ARGS__ << "]:", DBG_OUT(__VA_ARGS__)
 #else
 #define test(...)
-#endif
+#endif  
 
-template<typename T, std::size_t Nm>
-struct uniform_matrix {
-    std::vector<std::vector<T>> _elements;
+template<typename T, const std::size_t Nm>
+class uniform_matrix {
+private:
+    struct _row {
+        T* _elements;
+        std::size_t _size;
 
-    uniform_matrix() { };
+        _row() : 
+            _elements{ new T[Nm]}, _size{Nm} { }
 
-    uniform_matrix(std::size_t size = Nm) :_elements{
-        new std::vector<std::vector<T>>} { }
+        T& operator[](int i) { return _elements[i]; }
+        std::size_t size() const { return _size; }
+    };  
 
-    std::vector<T>& operator[](int i) { return _elements[i]; }
+public:
+    uniform_matrix() :_elements{
+        new _row[Nm]}, _size{Nm} { }
 
-    std::size_t size() const { return Nm; }
+        _row& operator[](int i) { return _elements[i]; }
+        std::size_t size() const { return _size; }
+
+private: 
+    _row* _elements;
+    std::size_t _size;
 };
 
 int main() {
@@ -47,9 +59,15 @@ int main() {
 
     uniform_matrix<int, 5> matrix;
 
-    for (int i = 0; i != matrix.size(); ++i) {
-        for (int j = 0; j != matrix.size(); ++j) {
+    for (int i = 0; i != int(matrix.size()); ++i) {
+        for (int j = 0; j != int(matrix.size()); ++j) {
             matrix[i][j] = 5;
+        }
+    }
+
+    for (int i = 0; i != int(matrix.size()); ++i) {
+        for (int j = 0; j != int(matrix.size()); ++j) {
+            std::cout << matrix[i][j] << (j >= int(matrix.size()) - 1 ? '\n' : ' ');
         }
     }
 }
