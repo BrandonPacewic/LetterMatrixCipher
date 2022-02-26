@@ -21,22 +21,6 @@ typedef std::vector<std::string> matrix;
 #define test(...)
 #endif
 
-template<typename T>
-class uniform_matrix {
-public:
-	uniform_matrix(std::size_t size) :_elements{
-		new std::vector<std::vector<T>>(size, std::vector<T>(size))}, _size{size} { }
-
-	T& operator[](int i) { return _elements[i]; }
-	int size() const { return _size; }
-
-private:
-	T* _elements;
-	std::size_t _size;
-};
-
-
-
 void print_matrix(const matrix& grid) {
     for (int row = 0; row < int(grid.size()); ++row) {
     	for (int cell = 0; cell < int(grid[row].size()); ++cell) {
