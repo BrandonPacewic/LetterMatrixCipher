@@ -28,25 +28,28 @@ template<typename Front, typename... Back> void DBG_OUT(Front K, Back... T) { st
 #endif  
 
 template<typename T, const std::size_t Nm>
-struct uniform_matrix {
+class uniform_matrix {
+private:
     struct _inner_data {
         T* _elements;
         std::size_t _size;
 
-        _inner_data() :_elements{ new T[Nm]}, _size{Nm} { }
+        _inner_data() : _elements{ new T[Nm]}, _size{Nm} { }
 
         T& operator[](int i) { return _elements[i]; }
         std::size_t size() const { return _size; }
     };  
 
-    uniform_matrix() :_elements{
+    _inner_data* _elements;
+    std::size_t _size;
+
+public:
+    uniform_matrix() : _elements{
         new _inner_data[Nm]}, _size{Nm} { }
 
     _inner_data& operator[](int i) { return _elements[i]; }
     std::size_t size() const { return _size; }
 
-    _inner_data* _elements;
-    std::size_t _size;
 };
 
 int main() {

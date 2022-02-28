@@ -9,6 +9,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
+// Will be turned into a matrix class with a matrix.cc file and a matrix.h file
 #ifndef _BRANDON_MATRIX
 #define _BRANDON_MATRIX
 typedef std::vector<std::string> matrix;
@@ -25,7 +26,7 @@ void print_matrix(const matrix& grid) {
     for (int row = 0; row < int(grid.size()); ++row) {
     	for (int cell = 0; cell < int(grid[row].size()); ++cell) {
     		std::cout << grid[row][cell] << (
-					cell >= int(grid[row].size()) - 1 ? '\n' : ' ');
+    				cell >= int(grid[row].size()) - 1 ? '\n' : ' ');
     	}
     }
 }
@@ -65,7 +66,7 @@ matrix create_matrix(const std::string& key) {
 
 	return grid;
 }
-
+	
 void const assert_valid_chars(const std::string& str) {
 	const std::string valid_chars = "abcdefghijklmnopqrstuvwxyz";
 
