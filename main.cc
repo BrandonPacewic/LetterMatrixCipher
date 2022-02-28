@@ -48,7 +48,7 @@ matrix create_matrix(const std::string& key) {
 		}
 	};
 
-	for (const char &ch : key) {
+	for (const char& ch : key) {
 		if (used.find(tolower(ch)) != used.end()) { continue; }
 
 		grid[row][cell] = (tolower(ch) == 'j' ? 'i' : tolower(ch));
@@ -56,7 +56,7 @@ matrix create_matrix(const std::string& key) {
 		adjust_row_cell(++cell, row);
 	}
 
-	for (const char &ch : alph) {
+	for (const char& ch : alph) {
 		assert(row < grid_size && cell < grid_size);
 		if (used.find(ch) != used.end()) { continue; }
 
@@ -70,7 +70,7 @@ matrix create_matrix(const std::string& key) {
 void const assert_valid_chars(const std::string& str) {
 	const std::string valid_chars = "abcdefghijklmnopqrstuvwxyz";
 
-	for (const char &ch : str) {
+	for (const char& ch : str) {
 		assert(valid_chars.find(tolower(ch)) != std::string::npos);
 	}
 }
@@ -162,7 +162,7 @@ std::string encoder(const matrix& grid, const bool& encoding,
 	// Create new message
 	std::string new_message = "";
 
-	for (const std::pair<int, int> &cord : new_cord_pairs) {
+	for (const std::pair<int, int>& cord : new_cord_pairs) {
 		new_message += grid[cord.first][cord.second];
 	}
 
