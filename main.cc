@@ -7,6 +7,13 @@
 #include <unordered_map>
 #include <unordered_set>
 
+#include "src/static_mod_type.h"
+
+// Accounting for compile order error
+#ifndef _BRANDON_STATIC_MOD_TYPE_C
+#include "src/static_mod_type.cc"
+#endif
+
 #ifndef _BRANDON_MATRIX
 #define _BRANDON_MATRIX
 typedef std::vector<std::string> matrix;
@@ -111,28 +118,17 @@ std::string encoder(const matrix& grid, const bool& encoding,
 		message_cord_pairs[i] = map_char_to_cord[message[i]];
 	}
 
-	// Adjusted modulo, creates a number between 0 and b insted
-	// of being between -b and b, this is an oddity found in both C
-	// and c++
-	// http://www.cplusplus.com/forum/general/19502/
-	auto mod = [](int a) -> int {
-		const int b = 4; // Valid index in matrix
-		a %= b;
-		if (a < 0) a += b;
-		assert(a >= 0 && a <= b);
-		return a; 
-	};
-
 	// ad defines the adjustment needed to find the propper char
 	// within the matrix
 	const int ad = (encoding ? 1 : -1);
 	std::vector<std::pair<int, int>> new_cord_pairs;
 
-	// Make new char pairs, mod is needed for adjustments to assert
+	// Make new char pairs, static_mod_type is needed for adjustments to assert
 	// that the new pair lands on a valid index of the grid
 	// this is valid because of the matrix wrap rule defined in README.md
-	for (int i = 0; i < int(message_cord_pairs.size()); i += 2) 
-	{
+	for (int i = 0; i < int(message_cord_pairs.size()); i += 2) {
+		bp::static_mod_type<int, 5> a;
+
 		if (message_cord_pairs[i].first == message_cord_pairs[i+1].first) 
 		{
 			new_cord_pairs.push_back({message_cord_pairs[i].first, 
