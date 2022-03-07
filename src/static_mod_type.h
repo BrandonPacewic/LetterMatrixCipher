@@ -14,7 +14,7 @@ namespace bp {
 // TODO: Check overflow; default is int
 typedef int ceil_num;
 
-template<typename _Tp, const int Ceil>
+template<typename _Tp, ceil_num Ceil>
 class static_mod_type {
 public:
 	_Tp value;
