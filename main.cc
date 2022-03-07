@@ -52,7 +52,7 @@ matrix create_matrix(const std::string& key) {
 		}
 	};
 
-	for (const char ch : key) {
+	for (const char& ch : key) {
 		if (used.find(tolower(ch)) != used.end()) { continue; }
 
 		grid[row][cell] = (tolower(ch) == 'j' ? 'i' : tolower(ch));
@@ -60,7 +60,7 @@ matrix create_matrix(const std::string& key) {
 		adjust_row_cell(++cell, row);
 	}
 
-	for (const char &ch : alph) {
+	for (const char& ch : alph) {
 		assert(row < grid_size && cell < grid_size);
 		if (used.find(ch) != used.end()) { continue; }
 
@@ -71,20 +71,31 @@ matrix create_matrix(const std::string& key) {
 	return grid;
 }
 
-void const assert_valid_chars(const std::string& str) {
+const std::unordered_set<char> create_valid_char_set() {
 	const std::string valid_chars = "abcdefghijklmnopqrstuvwxyz";
+	std::unordered_set<char> set_valid_chars;
 
+	for (const char& ch : valid_chars) {
+		set_valid_chars.insert(ch);
+	}
+
+	return set_valid_chars;
+}
+
+const void assert_valid_chars(const std::unordered_set<char>& valid_chars_set, 
+		const std::string& str) {
 	for (const char& ch : str) {
-		assert(valid_chars.find(tolower(ch)) != std::string::npos);
+		assert(valid_chars_set.count(tolower(ch)));
 	}
 }
 
-std::string encoder(const matrix& grid, const bool& encoding, 
-		std::string message) {
+std::string encoder(
+		const matrix& grid, const bool& encoding, std::string message) {
 	message.erase(std::remove_if(
 		message.begin(), message.end(), ::isspace), message.end());
 
-	assert_valid_chars(message);
+	auto valid_chars_set = create_valid_char_set();
+	assert_valid_chars(valid_chars_set, message);
 
 	const int matrix_size = int(grid.size());
 	std::unordered_map<char, std::pair<int, int>> map_char_to_cord;
