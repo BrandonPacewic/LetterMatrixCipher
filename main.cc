@@ -74,15 +74,15 @@ matrix create_matrix(const std::string& key) {
 void const assert_valid_chars(const std::string& str) {
 	const std::string valid_chars = "abcdefghijklmnopqrstuvwxyz";
 
-	for (const char &ch : str) {
+	for (const char& ch : str) {
 		assert(valid_chars.find(tolower(ch)) != std::string::npos);
 	}
 }
 
 std::string encoder(const matrix& grid, const bool& encoding, 
 		std::string message) {
-	auto it = std::remove_if(message.begin(), message.end(), ::isspace);
-	message.erase(it, message.end());
+	message.erase(std::remove_if(
+		message.begin(), message.end(), ::isspace), message.end());
 
 	assert_valid_chars(message);
 
@@ -137,11 +137,6 @@ std::string encoder(const matrix& grid, const bool& encoding,
 			new_col += ad;
 			new_cords.push_back({
 				message_cords[i+1].first, int(new_col)});
-
-			// new_cords.push_back({message_cords[i].first, 
-			// 	mod(message_cords[i].second + ad)});
-			// new_cords.push_back({message_cords[i+1].first, 
-			// 	mod(message_cords[i+1].second + ad)});
 		}
 		else if (message_cords[i].second == message_cords[i+1].second) {
 			// grid.size() == 5
@@ -152,11 +147,6 @@ std::string encoder(const matrix& grid, const bool& encoding,
 			new_row = message_cords[i+1].first;
 			new_row -= ad;
 			new_cords.push_back({int(new_row), message_cords[i+1].second});
-
-			// new_cords.push_back({mod(message_cords[i].first - ad),
-			// 	message_cords[i].second});
-			// new_cords.push_back({mod(message_cords[i+1].first - ad),
-			// 	message_cords[i+1].second});
 		}
 		else {
 			new_cords.push_back({message_cords[i].first, 
@@ -166,10 +156,9 @@ std::string encoder(const matrix& grid, const bool& encoding,
 		}
 	}
 
-	// Create new message
-	std::string new_message = "";
+	std::string new_message;
 
-	for (const std::pair<int, int> &cord : new_cords) {
+	for (const std::pair<int, int>& cord : new_cords) {
 		new_message += grid[cord.first][cord.second];
 	}
 
