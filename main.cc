@@ -112,50 +112,64 @@ std::string encoder(const matrix& grid, const bool& encoding,
 		if (message[i] == message[i+1]) { message[i+1] = 'x'; }
 	}
 
-	std::vector<std::pair<int, int>> message_cord_pairs(int(message.length()));
+	std::vector<std::pair<int, int>> message_cords(int(message.length()));
 
 	for (int i = 0; i < int(message.length()); ++i) {
-		message_cord_pairs[i] = map_char_to_cord[message[i]];
+		message_cords[i] = map_char_to_cord[message[i]];
 	}
 
 	// ad defines the adjustment needed to find the propper char
 	// within the matrix
 	const int ad = (encoding ? 1 : -1);
-	std::vector<std::pair<int, int>> new_cord_pairs;
+	std::vector<std::pair<int, int>> new_cords;
 
 	// Make new char pairs, static_mod_type is needed for adjustments to assert
 	// that the new pair lands on a valid index of the grid
 	// this is valid because of the matrix wrap rule defined in README.md
-	for (int i = 0; i < int(message_cord_pairs.size()); i += 2) {
-		bp::static_mod_type<int, 5> a;
+	for (int i = 0; i < int(message_cords.size()); i += 2) {
+		if (message_cords[i].first == message_cords[i+1].first) {
+			// grid.size() == 5
+			bp::static_mod_type<int, 5> new_col{message_cords[i].second};
+			new_col += ad;
+			new_cords.push_back({message_cords[i].first, int(new_col)});
 
-		if (message_cord_pairs[i].first == message_cord_pairs[i+1].first) 
-		{
-			new_cord_pairs.push_back({message_cord_pairs[i].first, 
-				mod(message_cord_pairs[i].second + ad)});
-			new_cord_pairs.push_back({message_cord_pairs[i+1].first, 
-				mod(message_cord_pairs[i+1].second + ad)});
+			new_col = message_cords[i+1].second;
+			new_col += ad;
+			new_cords.push_back({
+				message_cords[i+1].first, int(new_col)});
+
+			// new_cords.push_back({message_cords[i].first, 
+			// 	mod(message_cords[i].second + ad)});
+			// new_cords.push_back({message_cords[i+1].first, 
+			// 	mod(message_cords[i+1].second + ad)});
 		}
-		else if (message_cord_pairs[i].second == message_cord_pairs[i+1].second) 
-		{
-			new_cord_pairs.push_back({mod(message_cord_pairs[i].first - ad),
-				message_cord_pairs[i].second});
-			new_cord_pairs.push_back({mod(message_cord_pairs[i+1].first - ad),
-				message_cord_pairs[i+1].second});
+		else if (message_cords[i].second == message_cords[i+1].second) {
+			// grid.size() == 5
+			bp::static_mod_type<int, 5> new_row{message_cords[i].first};
+			new_row -= ad;
+			new_cords.push_back({int(new_row), message_cords[i].second});
+
+			new_row = message_cords[i+1].first;
+			new_row -= ad;
+			new_cords.push_back({int(new_row), message_cords[i+1].second});
+
+			// new_cords.push_back({mod(message_cords[i].first - ad),
+			// 	message_cords[i].second});
+			// new_cords.push_back({mod(message_cords[i+1].first - ad),
+			// 	message_cords[i+1].second});
 		}
-		else
-		{
-			new_cord_pairs.push_back({message_cord_pairs[i].first, 
-				message_cord_pairs[i+1].second});
-			new_cord_pairs.push_back({message_cord_pairs[i+1].first,
-				message_cord_pairs[i].second});
+		else {
+			new_cords.push_back({message_cords[i].first, 
+				message_cords[i+1].second});
+			new_cords.push_back({message_cords[i+1].first,
+				message_cords[i].second});
 		}
 	}
 
 	// Create new message
 	std::string new_message = "";
 
-	for (const std::pair<int, int> &cord : new_cord_pairs) {
+	for (const std::pair<int, int> &cord : new_cords) {
 		new_message += grid[cord.first][cord.second];
 	}
 
