@@ -38,7 +38,7 @@ typedef std::vector<std::string> matrix;
 void print_matrix(const matrix& grid) {
     for (int row = 0; row < int(grid.size()); ++row) {
     	for (int cell = 0; cell < int(grid[row].size()); ++cell) {
-    		std::cout << grid[row][cell] << (
+			std::cout << grid[row][cell] << (
 					cell >= int(grid[row].size()) - 1 ? '\n' : ' ');
     	}
     }
@@ -54,6 +54,7 @@ matrix create_matrix(const std::string& key) {
 	// null chars left after the matrix is initalized
 	matrix grid(grid_size, std::string(grid_size, '\0'));
 
+	// TODO: The following lambda function should be turned into a structure
 	auto adjust_row_cell = [](int& cell, int& row) -> void {
 		if (!(cell < grid_size)) {
 			cell = 0;
