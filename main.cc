@@ -14,6 +14,7 @@
 #include "src/static_mod_type.cc"
 #endif
 
+// TODO: Make a matrix class with .h and .cc files
 #ifndef _BRANDON_MATRIX
 #define _BRANDON_MATRIX
 typedef std::vector<std::string> matrix;
@@ -135,22 +136,20 @@ std::string encoder(
 	std::vector<std::pair<int, int>> new_cords;
 
 	// Make new char pairs, static_mod_type is needed for adjustments to assert
-	// that the new pair lands on a valid index of the grid
-	// this is valid because of the matrix wrap rule defined in README.md
+	// that the new pair lands on a valid index of the grid this is valid
+	// because of the matrix wrap rule defined in README.md The Ceil of the 
+	// static mod type is 5 as this will always be the size of the matrix
 	for (int i = 0; i < int(message_cords.size()); i += 2) {
 		if (message_cords[i].first == message_cords[i+1].first) {
-			// grid.size() == 5
 			bp::static_mod_type<int, 5> new_col{message_cords[i].second};
 			new_col += ad;
 			new_cords.push_back({message_cords[i].first, int(new_col)});
 
 			new_col = message_cords[i+1].second;
 			new_col += ad;
-			new_cords.push_back({
-				message_cords[i+1].first, int(new_col)});
+			new_cords.push_back({message_cords[i+1].first, int(new_col)});
 		}
 		else if (message_cords[i].second == message_cords[i+1].second) {
-			// grid.size() == 5
 			bp::static_mod_type<int, 5> new_row{message_cords[i].first};
 			new_row -= ad;
 			new_cords.push_back({int(new_row), message_cords[i].second});
