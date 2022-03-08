@@ -33,7 +33,7 @@ Once a matrix has been created we can now encode/decode the message
 
 Take the word 'this' for example, we first split it into character pairs
 
-```shell
+```text
 'th' 'is'
 ```
 
@@ -43,7 +43,7 @@ Now we treat each pair as row/column and column/row pairs to get a new character
 
 'This' encoded in our lizard matrix is 
 
-```shell
+```text
 'pnap'
 ```
 
@@ -63,19 +63,19 @@ v w x y z
 
 Our letter pairs would look like this
 
-```shell
+```text
 'ba' 'na' 'na'
 ```
 
 Because we are encoding we shift each character to the right if they are in the same row so our encoded letter pairs would look like this
 
-```shell
+```text
 'an' 'cn' 'cn'
 ```
 
 So banana encoded with banana is 
 
-```shell
+```text
 'ancncn'
 ```
 
@@ -85,13 +85,13 @@ The encoded word will have a letter that does not make sense but that can be fix
 
 In a similar mannar if any character pair contains identical characters such as in the word
 
-```shell
+```text
 'button'
 ```
 
 We replace the second character in the pair with 'x' so 'tt' becomes
 
-```shell
+```text
 'tx'
 ```
 
