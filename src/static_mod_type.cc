@@ -1,7 +1,10 @@
 /*
- * 2022 - static_mod_type class
- * Brandon Pacewic
-*/
+ * Copyright (c) 2022 Brandon Pacewic
+ *
+ * Developed and tested by Brandon Pacewic
+ * 
+ * static_mod_type.cc
+ */
 
 #pragma once
 #ifndef _BRANDON_STATIC_MOD_TYPE_C

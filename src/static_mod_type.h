@@ -1,6 +1,9 @@
 /*
- * static mod type
- * Brandon Pacewic
+ * Copyright (c) 2022 Brandon Pacewic
+ *
+ * Developed and tested by Brandon Pacewic
+ * 
+ * static_mod_type.h
  */
 
 #pragma once

@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2022 Brandon Pacewic
+ *
+ * Developed and tested by Brandon Pacewic
+ * 
+ * Main file for LetterMatrixCipher
+ */
+
 #include <algorithm>
 #include <cassert>
 #include <cctype>
@@ -83,17 +91,14 @@ const std::unordered_set<char> create_valid_char_set() {
 	return set_valid_chars;
 }
 
-const void assert_valid_chars(const std::unordered_set<char>& valid_chars_set, 
-		const std::string& str) {
+const void assert_valid_chars(const std::unordered_set<char>& valid_chars_set, const std::string& str) {
 	for (const char& ch : str) {
 		assert(valid_chars_set.count(tolower(ch)));
 	}
 }
 
-std::string encoder(
-		const matrix& grid, const bool& encoding, std::string message) {
-	message.erase(std::remove_if(
-		message.begin(), message.end(), ::isspace), message.end());
+std::string encoder(const matrix& grid, const bool& encoding, std::string message) {
+	message.erase(std::remove_if(message.begin(), message.end(), ::isspace), message.end());
 
 	auto valid_chars_set = create_valid_char_set();
 	assert_valid_chars(valid_chars_set, message);
