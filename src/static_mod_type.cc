@@ -6,7 +6,6 @@
  * static_mod_type.cc
  */
 
-#pragma once
 #ifndef _BRANDON_STATIC_MOD_TYPE_C
 #define _BRANDON_STATIC_MOD_TYPE_C
 
@@ -76,8 +75,8 @@ static_mod_type<_Tp, Ceil>& static_mod_type<_Tp, Ceil>::operator*=(
 }
 
 template<typename _Tp, const ceil_num Ceil>
-static_mod_type<_Tp, Ceil>&
-static_mod_type<_Tp, Ceil>::operator/=(const static_mod_type<_Tp, Ceil>& other) 
+static_mod_type<_Tp, Ceil>&static_mod_type<_Tp, Ceil>::operator/=(
+        const static_mod_type<_Tp, Ceil>& other) 
 { return value /= other.value; }
 
 template<typename _Tp, const ceil_num Ceil>
@@ -117,32 +116,32 @@ static_mod_type<_Tp, Ceil> static_mod_type<_Tp, Ceil>::operator%(
 
 template<typename _Tp, const ceil_num Ceil>
 bool static_mod_type<_Tp, Ceil>::operator==(
-        const static_mod_type<_Tp, Ceil>& other) const
+    const static_mod_type<_Tp, Ceil>& other) const
 { return value == other.value; }
 
 template<typename _Tp, const ceil_num Ceil>
 bool static_mod_type<_Tp, Ceil>::operator!=(
-        const static_mod_type<_Tp, Ceil>& other) const
+    const static_mod_type<_Tp, Ceil>& other) const
 { return value != other.value; }
 
 template<typename _Tp, const ceil_num Ceil>
 bool static_mod_type<_Tp, Ceil>::operator<(
-        const static_mod_type<_Tp, Ceil>& other) const
+const static_mod_type<_Tp, Ceil>& other) const
 { return value < other.value; }
 
 template<typename _Tp, const ceil_num Ceil>
 bool static_mod_type<_Tp, Ceil>::operator>(
-        const static_mod_type<_Tp, Ceil>& other) const
+    const static_mod_type<_Tp, Ceil>& other) const
 { return value > other.value; }
 
 template<typename _Tp, const ceil_num Ceil>
 bool static_mod_type<_Tp, Ceil>::operator<=(
-        const static_mod_type<_Tp, Ceil>& other) const
+    const static_mod_type<_Tp, Ceil>& other) const
 { return value <= other.value; }
 
 template<typename _Tp, const ceil_num Ceil>
 bool static_mod_type<_Tp, Ceil>::operator>=(
-        const static_mod_type<_Tp, Ceil>& other) const
+    const static_mod_type<_Tp, Ceil>& other) const
 { return value >= other.value; }
 
 template<typename _Tp, const ceil_num Ceil>
