@@ -168,17 +168,20 @@ std::string encoder(const matrix& grid, const bool& encoding,
 			new_cords.push_back({int(new_row), message_cords[i+1].second});
 		}
 		else {
-			new_cords.push_back({message_cords[i].first, 
-				message_cords[i+1].second});
-			new_cords.push_back({message_cords[i+1].first,
-				message_cords[i].second});
+			new_cords.push_back({
+				message_cords[i].first, message_cords[i+1].second
+			});
+			
+			new_cords.push_back({
+				message_cords[i+1].first, message_cords[i].second
+			});
 		}
 	}
 
 	std::string new_message;
 
-	for (const std::pair<int, int>& cord : new_cords) {
-		new_message += grid[cord.first][cord.second];
+	for (const auto&[row, col] : new_cords) {
+		new_message += grid[row][col];
 	}
 
 	return new_message;
