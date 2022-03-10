@@ -24,7 +24,7 @@ public:
 
     _Tp& operator[](const int&) const;
     
-    void assign_back(const _Tp&);
+    int assign_back(const _Tp&);
 
 private:
     _Tp* elements;
