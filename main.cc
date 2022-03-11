@@ -40,9 +40,29 @@ void print_matrix(const uniform_matrix<T, 5>& matrix) {
     for (int row = 0; row < int(matrix.size()); ++row) {
     	for (int cell = 0; cell < int(matrix[row].size()); ++cell) {
 			std::cout << matrix[row][cell] << (
-					cell >= int(matrix[row].size()) - 1 ? '\n' : ' ');
+				cell >= int(matrix[row].size()) - 1 ? '\n' : ' ');
     	}
     }
+}
+
+const std::unordered_set<char> create_valid_char_set() {
+	const std::string valid_chars = "abcdefghijklmnopqrstuvwxyz";
+	std::unordered_set<char> set_obj(valid_chars.begin(), valid_chars.end());
+	
+	return set_obj;
+}
+
+const void assert_valid_chars(const std::unordered_set<char>& valid_chars_set, 
+		const std::string& str) try {
+	for (const char& ch : str) {
+		assert(valid_chars_set.count(tolower(ch)));
+	}
+}
+catch (...) { // TODO: change '...' to proper assertion check
+	std::cerr << "invalid character found; valid chars are "
+	"abcdefghijklmnopqrstuvwxyz" << std::endl;
+
+	throw;
 }
 
 uniform_matrix<char, 5> create_matrix(const std::string& key) {
@@ -67,34 +87,8 @@ uniform_matrix<char, 5> create_matrix(const std::string& key) {
 	return matrix;
 }
 
-const std::unordered_set<char> create_valid_char_set() {
-	const std::string valid_chars = "abcdefghijklmnopqrstuvwxyz";
-	std::unordered_set<char> set_obj(valid_chars.begin(), valid_chars.end());
-	
-	return set_obj;
-}
-
-const void assert_valid_chars(const std::unordered_set<char>& valid_chars_set, 
-		const std::string& str) try {
-	for (const char& ch : str) {
-		assert(valid_chars_set.count(tolower(ch)));
-	}
-}
-catch (...) { // TODO: change '..' to proper assertion check
-	std::cerr << "invalid character found; valid chars are "
-	"abcdefghijklmnopqrstuvwxyz" << std::endl;
-
-	throw;
-}
-
 std::string encoder(const uniform_matrix<char, 5>& matrix, const bool& encoding, 
 		std::string message) {
-	message.erase(std::remove_if(
-		message.begin(), message.end(), ::isspace), message.end());
-
-	auto valid_chars_set = create_valid_char_set();
-	assert_valid_chars(valid_chars_set, message);
-
 	const int matrix_size = int(matrix.size());
 	std::unordered_map<char, std::pair<int, int>> map_char_to_cord;
 
@@ -115,10 +109,21 @@ std::string encoder(const uniform_matrix<char, 5>& matrix, const bool& encoding,
 	// If any pair of chars is the same, the second one must be converted
 	// to 'x'; defined in README.md. Also at this step every 'j' must 
 	// be replaced with in 'i'; defined in README.md
-	for (int i = 0; i < int(message.length()); i += 2) {
-		if (message[i] == 'j') { message[i] = 'j'; }
-		if (message[i+1] == 'j') { message[i+1] = 'j'; }
-		if (message[i] == message[i+1]) { message[i+1] = 'x'; }
+	auto account_for_j = [](char& first, char& second) -> void {
+		if (first == 'j') { first = 'i'; }
+		if (second == 'j') { second = 'i'; }
+	};
+
+	auto account_for_doubles = [](const char& first, char& second) -> void {
+		if (first == second) { second = 'x'; }
+	};
+
+	for (int i = 0; i < message.length(); i += 2) {
+		char& first = message[i];
+		char& second = message[i+1];
+
+		account_for_j(first, second);
+		account_for_doubles(first, second);
 	}
 
 	std::vector<std::pair<int, int>> message_cords(int(message.length()));
@@ -129,39 +134,53 @@ std::string encoder(const uniform_matrix<char, 5>& matrix, const bool& encoding,
 
 	// ad defines the adjustment needed to find the propper char
 	// within the matrix
-	const int ad = (encoding ? 1 : -1);
+	const int ad = (encoding) ? 1 : -1;
 	std::vector<std::pair<int, int>> new_cords;
 
 	// Make new char pairs, static_mod_type is needed for adjustments to assert
 	// that the new pair lands on a valid index of the matrix this is valid
 	// because of the matrix wrap rule defined in README.md The Ceil of the 
-	// static mod type is 5 as this will always be the size of the matrix
+	// static mod type is 5 as this will always be the size of the matrix and
+	// is when the new cord needs to wrap over to the other side of the matrix
+	const int roll_over = 5;
+
 	for (int i = 0; i < int(message_cords.size()); i += 2) {
-		if (message_cords[i].first == message_cords[i+1].first) {
-			bp::static_mod_type<int, 5> new_col{message_cords[i].second};
-			new_col += ad;
-			new_cords.push_back({message_cords[i].first, int(new_col)});
+		auto& pair_primary = message_cords[i];
+		auto& pair_secondary = message_cords[i+1];
 
-			new_col = message_cords[i+1].second;
+		if (pair_primary.first == pair_secondary.first) {
+			bp::static_mod_type<int, roll_over> new_col{pair_primary.second};
 			new_col += ad;
-			new_cords.push_back({message_cords[i+1].first, int(new_col)});
+			new_cords.push_back({
+				pair_primary.first, int(new_col)
+			});
+
+			new_col = pair_secondary.second;
+			new_col += ad;
+			new_cords.push_back({
+				pair_secondary.first, int(new_col)
+			});
 		}
-		else if (message_cords[i].second == message_cords[i+1].second) {
-			bp::static_mod_type<int, 5> new_row{message_cords[i].first};
+		else if (pair_primary.second == pair_secondary.second) {
+			bp::static_mod_type<int, roll_over> new_row{pair_primary.first};
 			new_row -= ad;
-			new_cords.push_back({int(new_row), message_cords[i].second});
+			new_cords.push_back({
+				int(new_row), pair_primary.second
+			});
 
-			new_row = message_cords[i+1].first;
+			new_row = pair_secondary.first;
 			new_row -= ad;
-			new_cords.push_back({int(new_row), message_cords[i+1].second});
+			new_cords.push_back({
+				int(new_row), pair_secondary.second
+			});
 		}
 		else {
 			new_cords.push_back({
-				message_cords[i].first, message_cords[i+1].second
+				pair_primary.first, pair_secondary.second
 			});
 			
 			new_cords.push_back({
-				message_cords[i+1].first, message_cords[i].second
+				pair_secondary.first, pair_primary.second
 			});
 		}
 	}
@@ -169,7 +188,9 @@ std::string encoder(const uniform_matrix<char, 5>& matrix, const bool& encoding,
 	std::string new_message;
 
 	for (const auto& cord : new_cords) {
-		new_message += matrix[cord.first][cord.second];
+		auto& row = cord.first;
+		auto& col = cord.second;
+		new_message += matrix[row][col];
 	}
 
 	return new_message;
@@ -179,13 +200,26 @@ int main() {
 	std::ios::sync_with_stdio(false);
 	std::cin.tie(nullptr);
 
+	const auto valid_chars_set = create_valid_char_set();
+
+	auto remove_ws = [](std::string& str) -> void {
+		str.erase(std::remove_if(str.begin(), str.end(), ::isspace), str.end());
+	};
+
 	std::string message;
 	std::cout << "Message: " << std::flush;
 	std::getline(std::cin, message);
 
+	remove_ws(message);
+	assert_valid_chars(valid_chars_set, message);
+
 	std::string key;
-	std::cout << "Key(NO WS): " << std::flush;
+	std::cout << "Key: " << std::flush;
 	std::cin >> key;
+
+	remove_ws(key);
+	assert_valid_chars(valid_chars_set, key);
+
 	auto matrix = create_matrix(key);
 	print_matrix(matrix);
 
