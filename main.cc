@@ -168,8 +168,8 @@ std::string encoder(const uniform_matrix<char, 5>& matrix, const bool& encoding,
 
 	std::string new_message;
 
-	for (const auto&[row, col] : new_cords) {
-		new_message += matrix[row][col];
+	for (const auto& cord : new_cords) {
+		new_message += matrix[cord.first][cord.second];
 	}
 
 	return new_message;
