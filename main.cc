@@ -118,7 +118,7 @@ std::string encoder(const uniform_matrix<char, 5>& matrix, const bool& encoding,
 		if (first == second) { second = 'x'; }
 	};
 
-	for (int i = 0; i < message.length(); i += 2) {
+	for (int i = 0; i < int(message.length()); i += 2) {
 		char& first = message[i];
 		char& second = message[i+1];
 
