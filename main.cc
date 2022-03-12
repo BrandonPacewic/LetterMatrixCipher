@@ -160,8 +160,7 @@ std::string encoder(const uniform_matrix<char, 5>& matrix, const bool& encoding,
 			new_cords.push_back({
 				pair_secondary.first, int(new_col)
 			});
-		}
-		else if (pair_primary.second == pair_secondary.second) {
+		} else if (pair_primary.second == pair_secondary.second) {
 			bp::static_mod_type<int, roll_over> new_row{pair_primary.first};
 			new_row -= ad;
 			new_cords.push_back({
@@ -173,8 +172,7 @@ std::string encoder(const uniform_matrix<char, 5>& matrix, const bool& encoding,
 			new_cords.push_back({
 				int(new_row), pair_secondary.second
 			});
-		}
-		else {
+		} else {
 			new_cords.push_back({
 				pair_primary.first, pair_secondary.second
 			});
