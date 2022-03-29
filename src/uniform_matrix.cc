@@ -15,7 +15,7 @@
 #include <ostream>
 #include <stdexcept>
 
-#include "uniform_matrix.h"
+#include "../include/uniform_matrix.h"
 using bp::_uniform_matrix_row;
 using bp::uniform_matrix;
 

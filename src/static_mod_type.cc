@@ -13,7 +13,7 @@
 #include <iostream>
 #include <istream>
 
-#include "static_mod_type.h"
+#include "../include/static_mod_type.h"
 using bp::static_mod_type;
 using bp::ceil_num;
 
