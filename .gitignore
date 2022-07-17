@@ -1,45 +1,4 @@
-# Prerequisites
-*.d
+# Copyright (c) Brandon Pacewic
+# SPDX-License-Identifier: MIT
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
-
-# vs code
-.vscode
-
-# dbg tools
-dbg.h
-
-# Sample input txt files
-*_input.txt
-*_output.txt
-
-# Test files
-test.cc
+/build/
