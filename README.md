@@ -100,3 +100,9 @@ We replace the second character in the pair with 'x' so 'tt' becomes
 This will sometimes create problems where it can be hard to tell if a given 'x' is really meant to be an 'x' or if it's a place holder for something else.
 
 This is why the letter 'x' was chosen as it has the least number of words connected to it in the english language.
+
+## License
+
+Copyright (c) Brandon Pacewic
+
+SPDX-License-Identifier: MIT
